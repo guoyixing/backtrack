@@ -26,6 +26,12 @@
     <extensions defaultExtensionNs="com.intellij">
 
     </extensions>
+
+    <projectListeners>
+        <listener class="io.github.guoyixing.backtrack.listener.PositionHistoryListener"
+                  topic="com.intellij.openapi.fileEditor.impl.IdeDocumentHistoryImpl$RecentPlacesListener"/>
+    </projectListeners>
+
     <actions>
         <action id="Backtrack" class="io.github.guoyixing.backtrack.BacktrackAction" text="Backtrack"
                 description="Backtrack">
