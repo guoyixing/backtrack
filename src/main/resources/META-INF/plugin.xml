@@ -24,13 +24,9 @@
     <!-- 插件扩展点
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-
+        <postStartupActivity implementation="io.github.guoyixing.backtrack.listener.CaretListenerStartupActivity"/>
     </extensions>
 
-    <projectListeners>
-        <listener class="io.github.guoyixing.backtrack.listener.PositionHistoryListener"
-                  topic="com.intellij.openapi.fileEditor.impl.IdeDocumentHistoryImpl$RecentPlacesListener"/>
-    </projectListeners>
 
     <actions>
         <action id="Backtrack" class="io.github.guoyixing.backtrack.BacktrackAction" text="Backtrack"

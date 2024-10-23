@@ -5,11 +5,11 @@ import com.intellij.openapi.fileEditor.impl.IdeDocumentHistoryImpl
 /**
  * 路径轨迹节点
  */
-class PathTrajectoryNode(var data: IdeDocumentHistoryImpl.PlaceInfo) {
+class PathTrajectoryNode(var data: IdeDocumentHistoryImpl.PlaceInfo,var isChanged: Boolean) {
 
-    private var parent: PathTrajectoryNode? = null
+    var parent: PathTrajectoryNode? = null
 
-    private var children: MutableList<PathTrajectoryNode> = mutableListOf()
+    var children: MutableList<PathTrajectoryNode> = mutableListOf()
 
     fun addChild(child: PathTrajectoryNode) {
         children.add(child)
