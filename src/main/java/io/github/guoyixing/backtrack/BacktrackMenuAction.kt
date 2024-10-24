@@ -4,7 +4,7 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import io.github.guoyixing.backtrack.model.tree.PathTrajectoryTree
 
-class BacktrackAction: AnAction() {
+class BacktrackMenuAction: AnAction() {
 
     /**
      * 路径轨迹树

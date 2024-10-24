@@ -25,12 +25,17 @@
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
         <postStartupActivity implementation="io.github.guoyixing.backtrack.listener.CaretListenerStartupActivity"/>
+        <toolWindow factoryClass="io.github.guoyixing.backtrack.ui.BacktrackToolWindowFactory"
+                    id="Backtrack"
+                    canCloseContents="false"
+                    anchor="right"
+                    icon="/icon/popup.svg"/>
     </extensions>
 
 
     <actions>
-        <action id="Backtrack" class="io.github.guoyixing.backtrack.BacktrackAction" text="Backtrack"
-                description="Backtrack">
+        <action id="BacktrackMenu" class="io.github.guoyixing.backtrack.BacktrackMenuAction" text="Backtrack"
+                description="BacktrackMenu">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>
     </actions>

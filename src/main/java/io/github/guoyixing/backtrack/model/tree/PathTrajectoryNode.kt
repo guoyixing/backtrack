@@ -1,11 +1,11 @@
 package io.github.guoyixing.backtrack.model.tree
 
-import com.intellij.openapi.fileEditor.impl.IdeDocumentHistoryImpl
+import io.github.guoyixing.backtrack.model.BacktrackPosition
 
 /**
  * 路径轨迹节点
  */
-class PathTrajectoryNode(var data: IdeDocumentHistoryImpl.PlaceInfo,var isChanged: Boolean) {
+class PathTrajectoryNode(var data: BacktrackPosition) {
 
     var parent: PathTrajectoryNode? = null
 
@@ -32,7 +32,6 @@ class PathTrajectoryNode(var data: IdeDocumentHistoryImpl.PlaceInfo,var isChange
     fun isLeaf(): Boolean {
         return children.isEmpty()
     }
-
 
 
 }

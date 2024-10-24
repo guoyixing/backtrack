@@ -9,8 +9,8 @@ class CaretListenerStartupActivity : ProjectActivity {
 
     override suspend fun execute(project: Project) {
         val editorFactory = EditorFactory.getInstance()
-        val listener = PositionHistoryListener()
-        val disposable = project.getService(BacktrackDisposable::class.java)
+        val listener = PositionHistoryListener(project)
+        val disposable = BacktrackDisposable.getInstance(project)
         editorFactory.eventMulticaster.addCaretListener(listener, disposable)
     }
 
