@@ -20,6 +20,7 @@
     <!-- 插件的依赖
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
 
     <!-- 插件扩展点
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->

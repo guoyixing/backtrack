@@ -4,13 +4,17 @@ import com.intellij.openapi.editor.event.CaretEvent
 import com.intellij.openapi.editor.event.CaretListener
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.TextRange
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.psi.*
+import com.intellij.psi.util.PsiTreeUtil
 import io.github.guoyixing.backtrack.manger.PathTrajectoryManager
 import io.github.guoyixing.backtrack.model.BacktrackPosition
 import io.github.guoyixing.backtrack.model.tree.PathTrajectoryNode
 import io.github.guoyixing.backtrack.model.tree.PathTrajectoryTree
 
-class PositionHistoryListener(project: Project) : CaretListener {
+
+class PositionHistoryListener(private val project: Project) : CaretListener {
 
     private val manager: PathTrajectoryManager = project.getService(PathTrajectoryManager::class.java)
 
@@ -74,13 +78,29 @@ class PositionHistoryListener(project: Project) : CaretListener {
         val document = editor.document
         val file: VirtualFile? = FileDocumentManager.getInstance().getFile(document)
 
-        if (file != null) {
-            println("${file.path}[${position.line},${position.column}]")
-        } else {
-            println(" not found[${position.line},${position.column}]")
+        val psiFile: PsiFile = PsiDocumentManager.getInstance(project).getPsiFile(document) ?: return null
+        val elementAtCaret: PsiElement? = psiFile.findElementAt(caret.offset)
+        val method: PsiMethod? = PsiTreeUtil.getParentOfType(elementAtCaret, PsiMethod::class.java)
+
+        // 获取方法名和类名
+        val className = method?.containingClass?.name ?: "无"
+        val methodName = method?.name ?: "无"
+
+        // 光标前后的代码片段
+        val startLine = (position.line - 3).coerceAtLeast(0)
+        val endLine = (position.line + 3).coerceAtMost(document.lineCount - 1)
+        val codeSnippet = (startLine..endLine).joinToString("\n") { line ->
+            val startOffset = document.getLineStartOffset(line)
+            val endOffset = document.getLineEndOffset(line)
+            document.getText(TextRange(startOffset, endOffset))
         }
 
-        return BacktrackPosition(file?.path, position.line, position.column)
+        file?.let {
+            println("${it.path}[${position.line},${position.column}]")
+        } ?: println("not found[${position.line},${position.column}]")
+
+
+        return BacktrackPosition(file?.path, position.line, position.column, methodName, className, codeSnippet)
     }
 
 }
